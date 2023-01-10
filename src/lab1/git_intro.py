@@ -9,3 +9,12 @@ Edit this file to:
 Commit your changes to your local repository.
 Push your changes to your forked repository on github.
 '''
+
+
+def main():
+    my_name = 'Kenneth Burt'
+    print('Hello', my_name)
+
+
+if __name__ == '__main__':
+    main()
