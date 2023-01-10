@@ -1,4 +1,5 @@
-'''Lab 1.1: Git Intro
+"""
+Lab 1.1: Git Intro
 
 In this lab, you will learn how to use git and github to manage your code.
 
@@ -8,12 +9,17 @@ Edit this file to:
     Print 'Hello <Your Name>' to the console.
 Commit your changes to your local repository.
 Push your changes to your forked repository on github.
-'''
+"""
+
+
+def lab1():
+    my_name = 'Kenneth Burt'
+    print('Hello', my_name)
 
 
 def main():
-    my_name = 'Kenneth Burt'
-    print('Hello', my_name)
+    # Each lab will have their own function.
+    lab1()
 
 
 if __name__ == '__main__':
