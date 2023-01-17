@@ -9,6 +9,7 @@ Edit this file to:
     Print 'Hello <Your Name>' to the console.
 Commit your changes to your local repository.
 Push your changes to your forked repository on github.
+<<<<<<< HEAD
 """
 
 
@@ -24,3 +25,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+=======
+'''
+print("hello")
+>>>>>>> 1d00b3cf3f0adc55131dbe735e3c6e77dc2c9d7f
