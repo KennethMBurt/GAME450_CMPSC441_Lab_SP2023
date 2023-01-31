@@ -43,16 +43,49 @@ class AiPlayer(Player):
     def __init__(self, name):
         super().__init__(name)
         self.initial_weapon = random_weapon_select()
-    
+        self.recognized_opponent = 0
+
+    def mimic_selection_strategy(self):
+        # strategy that runs if the detected computer is mimic
+        return (self.my_choices[-1] + 1) % 3
+
+    def static_selection_strategy(self):
+        # strategy that runs if the detected computer is not mimic
+        return (self.opponent_choices[-1] + 1) % 3
+
     def weapon_selecting_strategy(self):
-        pass
+        print(self.recognized_opponent)
+        # check if the opponent has been identified
+        if self.recognized_opponent == 1:
+            return self.static_selection_strategy()
+        elif self.recognized_opponent == 2:
+            return self.mimic_selection_strategy()
+
+        # pick random weapon first
+        if len(self.opponent_choices) == 0:
+            return self.initial_weapon
+
+        # after 3 turns we know for certain if we are fighting the mimic
+        elif len(self.opponent_choices) == 3:
+            # at turn 3 set recognized_opponent according to who they are
+            if self.opponent_choices[0] == self.opponent_choices[1] == self.opponent_choices[2]:
+                self.recognized_opponent = 1
+                return self.static_selection_strategy()
+            else:
+                self.recognized_opponent = 2
+                return self.mimic_selection_strategy()
+
+        return (self.opponent_choices[-1] + 1) % 3
 
 
 if __name__ == '__main__':
     final_tally = [0]*3
     for agent in range(3):
         for i in range(100):
-            tally = [score for _, score in run_game(AiPlayer("AI"), 100, agent)]
-            final_tally[agent] += tally[0]/sum(tally)
+            tally = [score for _, score in run_game(AiPlayer("Ken's AI"), 100, agent)]
+            if sum(tally) == 0:
+                final_tally[agent] = 0
+            else:
+                final_tally[agent] += tally[0]/sum(tally)
 
     print("Final tally: ", final_tally)  

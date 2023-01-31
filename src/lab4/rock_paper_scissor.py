@@ -117,7 +117,7 @@ class Game:
 
 
 # Setup Game Objects
-def run_game(player: Player, n_rounds=3, computer_agent=-1):
+def run_game(player: Player, n_rounds=3, computer_agent=2):
     """
     > The function `run_game` takes in an agent, number of rounds to play and a computer agent, 
     and plays a game of rock-paper-scissors with them for the specified number of rounds.
@@ -152,5 +152,5 @@ def run_game(player: Player, n_rounds=3, computer_agent=-1):
     
 
 if __name__ == '__main__':
-    human = Player("Mark", strategy=console_weapon_select)
+    human = Player("Kenneth", strategy=console_weapon_select)
     run_game(human)
