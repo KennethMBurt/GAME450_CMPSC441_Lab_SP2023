@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.append(str((Path(__file__) / ".." / ".." / "..").resolve().absolute()))
 
-from src.lab5.landscape import elevation_to_rgba
+from src.lab5.landscape import elevation_to_rgba, get_elevation
 
 
 def game_fitness(cities, idx, elevation, size):
@@ -30,6 +30,19 @@ def game_fitness(cities, idx, elevation, size):
     2. The cities should have a realistic distribution across the landscape
     3. The cities may also not be on top of mountains or on top of each other
     """
+    city_elv = []
+
+    # connecting each city to an elevation and a coordinate
+    for city in cities:
+        y = city // size[1]
+        x = city % size[0]
+        city_elv.append(elevation[y][x])
+
+    for elv in city_elv:
+        # make sure the cities are not underwater or on a mountain
+        if elv > .35 and elv < .8:
+            fitness = fitness + 1
+
     return fitness
 
 
@@ -114,7 +127,9 @@ if __name__ == "__main__":
     size = 100, 100
     n_cities = 10
     elevation = []
-    """ initialize elevation here from your previous code"""
+
+    elevation = get_elevation(size)
+
     # normalize landscape
     elevation = np.array(elevation)
     elevation = (elevation - elevation.min()) / (elevation.max() - elevation.min())
