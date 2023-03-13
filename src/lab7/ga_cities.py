@@ -13,6 +13,8 @@ fulfilled. Clearly explain in comments which line of code and variables are used
 import matplotlib.pyplot as plt
 import pygad
 import numpy as np
+import math
+import statistics
 
 import sys
 from pathlib import Path
@@ -30,18 +32,43 @@ def game_fitness(cities, idx, elevation, size):
     2. The cities should have a realistic distribution across the landscape
     3. The cities may also not be on top of mountains or on top of each other
     """
-    city_elv = []
 
+    city_elv = []
     # connecting each city to an elevation and a coordinate
-    for city in cities:
-        y = city // size[1]
-        x = city % size[0]
-        city_elv.append(elevation[y][x])
+    city_arr = solution_to_cities(cities, size)
+    for city in city_arr:
+        city_elv.append(elevation[city[0]][city[1]])
+
+        # if the city is not too close to the x or y border add 1 to the fitness
+        if city[0] > 5 and city[0] < size[0] - 5:
+            fitness = fitness + 1
+        if city[1] > 5 and city[1] < size[1] - 5:
+            fitness = fitness + 1
 
     for elv in city_elv:
         # make sure the cities are not underwater or on a mountain
+        # if the elevation is not too high or too low for a city add one to the fitness function
         if elv > .35 and elv < .8:
             fitness = fitness + 1
+
+    # array of closest city distance
+    closest_dis = []
+    # The more evenly distributed the cities the higher the fitness function
+    for city in city_arr:
+        cur_dis = 10000
+        for other_city in city_arr:
+            # dont check the same city
+            if city[0] != other_city[0] and city[1] != other_city[1]:
+                x = math.pow((city[0] - other_city[0]), 2)
+                y = math.pow((city[1] - other_city[1]), 2)
+                dis = math.sqrt(x + y)
+                if dis < cur_dis:
+                    cur_dis = dis
+        closest_dis.append(cur_dis)
+
+    # the higher the average closest city the better the fittness function
+    ave_dis = statistics.mean(closest_dis)
+    fitness = fitness + (ave_dis/10)
 
     return fitness
 
