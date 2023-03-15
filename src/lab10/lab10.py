@@ -7,16 +7,17 @@ You can usually improve the model by normalizing the input data. Try that and se
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn import preprocessing
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv("src/lab8/heart.csv")
+data = pd.read_csv("C:/Users/labadmin/PycharmProjects/GAME450_CMPSC441_Lab_SP2023Real/src/lab10/heart.csv")
 
 # Transform the categorical variables into dummy variables.
 print(data.head())
 string_col = data.select_dtypes(include="object").columns
 df = pd.get_dummies(data, columns=string_col, drop_first=False)
-print(data.head())
+print(df.head())
 
 y = df.HeartDisease.values
 x = df.drop(["HeartDisease"], axis=1)
@@ -26,12 +27,25 @@ x_train, x_test, y_train, y_test = train_test_split(
 
 """ Train a sklearn model here. """
 
-sklearn_model = None
+sklearn_model = KNeighborsClassifier(n_neighbors=10)
+
+sklearn_model.fit(x, y)
 
 # Accuracy
 print("Accuracy of model: {}\n".format(sklearn_model.score(x_test, y_test)))
 
+# normalize
+d = preprocessing.normalize(df)
+new_cols = df.columns
+df2 = pd.DataFrame(d, columns=new_cols)
 
-""" Improve the model by normalizing the input data. """
+# y should be the same because it was already between 1 and 0
+x2 = df2.drop(["HeartDisease"], axis=1)
+x2_train, x2_test, y_train, y_test = train_test_split(
+    x2, y, test_size=0.2, random_state=25
+)
+sklearn_model = KNeighborsClassifier(n_neighbors=10)
+
+sklearn_model.fit(x2, y)
 
 print("Accuracy of improved model: {}\n".format(sklearn_model.score(x_test, y_test)))
