@@ -6,7 +6,7 @@ from turn_combat import CombatPlayer, Combat
 from pygame_ai_player import PyGameAICombatPlayer
 from pygame_human_player import PyGameHumanCombatPlayer
 
-AI_SPRITE_PATH = Path("assets/ai.png")
+AI_SPRITE_PATH = Path("C:/Users/labadmin/PycharmProjects/GAME450_CMPSC441_Lab_SP2023Real/assets/ai.png")
 
 pygame.font.init()
 game_font = pygame.font.SysFont("Comic Sans MS", 15)
@@ -28,7 +28,7 @@ class PyGameComputerCombatPlayer(CombatPlayer):
 
 def run_pygame_combat(combat_surface, screen, player_sprite):
     currentGame = Combat()
-    player = PyGameHumanCombatPlayer("Legolas")
+    player = PyGameAICombatPlayer("Computer Boy")
     """ Add a line below that will reset the player object
     to an instance of the PyGameAICombatPlayer class"""
 

@@ -61,7 +61,7 @@ if __name__ == "__main__":
     black = 1, 1, 1
     start_city = 0
     end_city = 9
-    sprite_path = "assets/lego.png"
+    sprite_path = "C:/Users/labadmin/PycharmProjects/GAME450_CMPSC441_Lab_SP2023Real/assets/lego.png"
     sprite_speed = 1
 
     screen = setup_window(width, height, "Game World Gen Practice")
@@ -89,8 +89,7 @@ if __name__ == "__main__":
 
     player_sprite = Sprite(sprite_path, cities[start_city])
 
-    player = PyGameHumanPlayer()
-
+    player = PyGameAIPlayer()
     """ Add a line below that will reset the player variable to 
     a new object of PyGameAIPlayer class."""
 
