@@ -38,11 +38,6 @@ class PyGameAICombatPlayer(CombatPlayer):
 
     def weapon_selecting_strategy(self):
         while True:
-            # on quit quit
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-
             # too fast slow down
             time.sleep(.5)
             
