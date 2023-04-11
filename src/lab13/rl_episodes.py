@@ -42,7 +42,7 @@ class PyGamePolicyCombatPlayer(CombatPlayer):
         self.policy = policy
 
     def weapon_selecting_strategy(self):
-        self.weapon = self.policy[self.current_env_state]
+        self.weapon = self.policy[(self.health, self.current_env_state[0])]
         return self.weapon
 
 
@@ -84,7 +84,28 @@ def run_episodes(n_episodes):
 
         returns_from.append(get_history_returns(episode_ans))
 
-    returns_from
+    # Create the action values states
+    temp_values = {}
+    action_values = {}
+
+    # temp dict to hold a list of all the values to average
+    for episode_re in returns_from:
+        for state in episode_re:
+            for action in episode_re[state]:
+                if state not in temp_values:
+                    temp_values[state] = {}
+
+                if action not in temp_values[state]:
+                    temp_values[state][action] = []
+
+                temp_values[state][action].append(episode_re[state][action])
+
+    # find the average of the turns
+    for state in temp_values:
+        for action in temp_values[state]:
+            if state not in action_values:
+                action_values[state] = {}
+            action_values[state][action] = np.average(temp_values[state][action])
 
     return action_values
 
@@ -111,6 +132,7 @@ def test_policy(policy):
 
 if __name__ == "__main__":
     action_values = run_episodes(10000)
+    print("")
     print(action_values)
     optimal_policy = get_optimal_policy(action_values)
     print(optimal_policy)

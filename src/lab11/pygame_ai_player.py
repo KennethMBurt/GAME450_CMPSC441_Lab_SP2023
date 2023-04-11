@@ -58,7 +58,7 @@ class PyGameAICombatPlayer(CombatPlayer):
                 # at turn 3 set recognized_opponent according to who they are
                 if self.opponent_choices[0] == self.opponent_choices[1] == self.opponent_choices[2]:
                     self.recognized_opponent = 1
-                    self.weapon =  self.static_selection_strategy()
+                    self.weapon = self.static_selection_strategy()
                     return self.weapon
                 else:
                     self.recognized_opponent = 2
