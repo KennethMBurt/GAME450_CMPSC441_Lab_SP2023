@@ -23,7 +23,7 @@ from landscape import get_landscape
 
 from pathlib import Path
 sys.path.append(str((Path(__file__)/'..'/'..').resolve().absolute()))
-from lab2.cities_n_routes import get_randomly_spread_cities, get_routes
+from src.lab2.cities_n_routes import get_randomly_spread_cities, get_routes
 
 def generate_surface(size):
     landscape = get_landscape(size)

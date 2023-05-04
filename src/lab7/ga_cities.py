@@ -131,6 +131,7 @@ def solution_to_cities(solution, size):
     cities = np.array(
         list(map(lambda x: [int(x / size[0]), int(x % size[1])], solution))
     )
+    print(cities)
     return cities
 
 
